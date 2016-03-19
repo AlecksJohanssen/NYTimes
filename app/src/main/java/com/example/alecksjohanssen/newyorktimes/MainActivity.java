@@ -1,5 +1,6 @@
 package com.example.alecksjohanssen.newyorktimes;
 
+import android.app.DatePickerDialog;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,10 +17,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.alecksjohanssen.newyorktimes.Activities.ArticleActivity;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -29,7 +31,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.Set;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -40,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnsearch;
     ArrayList<Article> articles;
     ArticleArrayAdapter adapter;
+    TextView mEditText;
 
     @Override
 
@@ -49,15 +56,17 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setupViews();
+        mEditText = (TextView) findViewById(R.id.textView2);
 
 
     }
+
     private void showSettings() {
-        DialogSettings my_dialog = new DialogSettings();
-        my_dialog.show(getSupportFragmentManager(), "DialogSettings");
+        Intent intent = new Intent(MainActivity.this, Settings.class);
+        startActivity(intent);
     }
-    public void setupViews()
-    {
+
+    public void setupViews() {
         etQuery = (EditText) findViewById(R.id.etQuery);
         gvResults = (GridView) findViewById(R.id.gvResult);
         btnsearch = (Button) findViewById(R.id.btnSearch);
@@ -73,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
     }
 
 
@@ -93,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            switch(item.getItemId()){
+            switch (item.getItemId()) {
                 case R.id.action_settings:
                     showSettings();
 
@@ -131,5 +139,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    }
+
+}
+  //  public void onSportArticle(View view){
+      //  String query = etQuery.getText().toString();
+      //  AsyncHttpClient client2 = new AsyncHttpClient();
+      //  String url ="http://api.nytimes.com/svc/search/v2/articlesearch.json?fq=romney&facet_field=day_of_week&begin_date="+begin_date+"&end_date=20120101&api-key=67446d0bde26aebfed2261c9c950bc08:11:74724105"
+        //http://api.nytimes.com/svc/search/v2/articlesearch.json?fq=romney&api-key=67446d0bde26aebfed2261c9c950bc08:11:74724105
+
+
+
 

@@ -1,28 +1,39 @@
 package com.example.alecksjohanssen.newyorktimes;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v4.app.FragmentActivity;
 
-public class DialogSettings extends DialogFragment {
-    String selection;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
-    private EditText mEditText;
-    final String[] items = {"Search by Book","Search by Item","Search by Items"};
+public class DialogSettings extends DialogFragment  {
+ String selection;
+    Calendar myCalendar = Calendar.getInstance();
+    final String[] items = {"Art", "Fashion & Style", "Sport"};
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
     @NonNull
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
 
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
         alertDialogBuilder.setTitle("Choose").setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
             @Override
@@ -30,12 +41,8 @@ public class DialogSettings extends DialogFragment {
                 switch (arg1) {
                     case 0:
                         selection = (String) items[arg1];
-                        if(selection.equals(items)) {
-                            Intent myIntent = new Intent(DialogSettings.this.getActivity(), MainActivity.class);
-                            startActivity(myIntent);
-                        }
+                    break;
 
-                        break;
                     case 1:
                         selection = (String) items[arg1];
                         break;
@@ -44,6 +51,9 @@ public class DialogSettings extends DialogFragment {
                         break;
                 }
             }
+
+
+
         }).setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -61,6 +71,8 @@ public class DialogSettings extends DialogFragment {
 
         return alertDialogBuilder.create();
     }
+    }
 
 
-}
+
+
